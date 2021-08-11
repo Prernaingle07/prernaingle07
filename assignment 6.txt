@@ -1,0 +1,385 @@
+MySQL Shell 8.0.26
+
+Copyright (c) 2016, 2021, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect
+\connect [--mx|--mysqlx|--mc|--mysql] <URI>
+ MySQL  SQL > \connect root@localhost
+Creating a session to 'root@localhost'
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 29 (X protocol)
+Server version: 8.0.26 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:33060+ ssl  SQL > create schema `bikedb`;
+ERROR: 1007: Can't create database 'bikedb'; database exists
+ MySQL  localhost:33060+ ssl  SQL > use `bikedb`;
+Default schema set to `bikedb`.
+Fetching table and column names from `bikedb` for auto-completion... Press ^C to stop.
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from company;
++----+-------+--------+-------+
+| Id | Name  | Origin | found |
++----+-------+--------+-------+
+|  1 | Honda | India  |  1984 |
+|  2 | Bajaj | India  |  1945 |
+|  3 | TVS   | India  |  1978 |
++----+-------+--------+-------+
+3 rows in set (0.0028 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from country;
++----+-------+
+| Id | Name  |
++----+-------+
+|  1 | Japan |
+|  2 | India |
+|  3 | Japan |
++----+-------+
+3 rows in set (0.0027 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from bike;
++----+------+------+---------+---------+
+| Id | Name | type | Statuts | Company |
++----+------+------+---------+---------+
+|  1 | TVS  |   34 | active  |    1234 |
++----+------+------+---------+---------+
+1 row in set (0.0006 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > insert into bike(Id,Name,type,Statuts,Company)
+                                         -> values('2','TVS','13','active','88')
+                                         -> ;
+Query OK, 1 row affected (0.0052 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > insert into bike(Id,Name,type,Statuts,Company)
+                                         -> values('3','Yzf','14','active','77') ;
+Query OK, 1 row affected (0.0216 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from bike;
++----+------+------+---------+---------+
+| Id | Name | type | Statuts | Company |
++----+------+------+---------+---------+
+|  1 | TVS  |   34 | active  |    1234 |
+|  2 | TVS  |   13 | active  |      88 |
+|  3 | Yzf  |   14 | active  |      77 |
++----+------+------+---------+---------+
+3 rows in set (0.0004 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from company;
++----+-------+--------+-------+
+| Id | Name  | Origin | found |
++----+-------+--------+-------+
+|  1 | Honda | India  |  1984 |
+|  2 | Bajaj | India  |  1945 |
+|  3 | TVS   | India  |  1978 |
++----+-------+--------+-------+
+3 rows in set (0.0005 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update company set Name=Japan where Id=1;
+ERROR: 1054: Unknown column 'Japan' in 'field list'
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update company set Name='Japan' where Id=1;
+Query OK, 1 row affected (0.0053 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update company set Name='Honda' where Id=1;
+Query OK, 1 row affected (0.0227 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from country;
++----+-------+
+| Id | Name  |
++----+-------+
+|  1 | Japan |
+|  2 | India |
+|  3 | Japan |
++----+-------+
+3 rows in set (0.0026 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from bike;
++----+------+------+---------+---------+
+| Id | Name | type | Statuts | Company |
++----+------+------+---------+---------+
+|  1 | TVS  |   34 | active  |    1234 |
+|  2 | TVS  |   13 | active  |      88 |
+|  3 | Yzf  |   14 | active  |      77 |
++----+------+------+---------+---------+
+3 rows in set (0.0025 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from country;
++----+-------+
+| Id | Name  |
++----+-------+
+|  1 | Japan |
+|  2 | India |
+|  3 | Japan |
++----+-------+
+3 rows in set (0.0005 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update country set Name='TVS' where Id=2;
+Query OK, 1 row affected (0.0058 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update country set Name='Yzf' where Id=3;
+Query OK, 1 row affected (0.0051 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from country;
++----+-------+
+| Id | Name  |
++----+-------+
+|  1 | Japan |
+|  2 | TVS   |
+|  3 | Yzf   |
++----+-------+
+3 rows in set (0.0027 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update country set Name='Japan' where Id=3;
+Query OK, 1 row affected (0.0056 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update country set Name='India' where Id=2;
+Query OK, 1 row affected (0.0058 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from country;
++----+-------+
+| Id | Name  |
++----+-------+
+|  1 | Japan |
+|  2 | India |
+|  3 | Japan |
++----+-------+
+3 rows in set (0.0005 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from bike;
++----+------+------+---------+---------+
+| Id | Name | type | Statuts | Company |
++----+------+------+---------+---------+
+|  1 | TVS  |   34 | active  |    1234 |
+|  2 | TVS  |   13 | active  |      88 |
+|  3 | Yzf  |   14 | active  |      77 |
++----+------+------+---------+---------+
+3 rows in set (0.0026 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update company set Name='TVS' where id=2;
+Query OK, 1 row affected (0.0057 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update company set Name='Yzf' where id=3;
+Query OK, 1 row affected (0.0054 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update company set Origin='Japan' where id=1;
+Query OK, 1 row affected (0.0061 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select *from bike;
++----+------+------+---------+---------+
+| Id | Name | type | Statuts | Company |
++----+------+------+---------+---------+
+|  1 | TVS  |   34 | active  |    1234 |
+|  2 | TVS  |   13 | active  |      88 |
+|  3 | Yzf  |   14 | active  |      77 |
++----+------+------+---------+---------+
+3 rows in set (0.0004 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update company set Name='Honda' where id=1;
+Query OK, 1 row affected (0.0005 sec)
+
+Rows matched: 1  Changed: 0  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select *from bike;
++----+------+------+---------+---------+
+| Id | Name | type | Statuts | Company |
++----+------+------+---------+---------+
+|  1 | TVS  |   34 | active  |    1234 |
+|  2 | TVS  |   13 | active  |      88 |
+|  3 | Yzf  |   14 | active  |      77 |
++----+------+------+---------+---------+
+3 rows in set (0.0004 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update company set Origin='Honda' where id=1;
+Query OK, 1 row affected (0.0040 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select *from bike;
++----+------+------+---------+---------+
+| Id | Name | type | Statuts | Company |
++----+------+------+---------+---------+
+|  1 | TVS  |   34 | active  |    1234 |
+|  2 | TVS  |   13 | active  |      88 |
+|  3 | Yzf  |   14 | active  |      77 |
++----+------+------+---------+---------+
+3 rows in set (0.0024 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from company;
++----+-------+--------+-------+
+| Id | Name  | Origin | found |
++----+-------+--------+-------+
+|  1 | Honda | Honda  |  1984 |
+|  2 | TVS   | India  |  1945 |
+|  3 | Yzf   | India  |  1978 |
++----+-------+--------+-------+
+3 rows in set (0.0029 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select *from bike;
++----+------+------+---------+---------+
+| Id | Name | type | Statuts | Company |
++----+------+------+---------+---------+
+|  1 | TVS  |   34 | active  |    1234 |
+|  2 | TVS  |   13 | active  |      88 |
+|  3 | Yzf  |   14 | active  |      77 |
++----+------+------+---------+---------+
+3 rows in set (0.0005 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update company set Name='Honda', Origin='India' where id=1;
+Query OK, 1 row affected (0.0058 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from company;
++----+-------+--------+-------+
+| Id | Name  | Origin | found |
++----+-------+--------+-------+
+|  1 | Honda | India  |  1984 |
+|  2 | TVS   | India  |  1945 |
+|  3 | Yzf   | India  |  1978 |
++----+-------+--------+-------+
+3 rows in set (0.0010 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select *from bike;
++----+------+------+---------+---------+
+| Id | Name | type | Statuts | Company |
++----+------+------+---------+---------+
+|  1 | TVS  |   34 | active  |    1234 |
+|  2 | TVS  |   13 | active  |      88 |
+|  3 | Yzf  |   14 | active  |      77 |
++----+------+------+---------+---------+
+3 rows in set (0.0026 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update Company set Name='Honda' where Id=1;
+Query OK, 1 row affected (0.0004 sec)
+
+Rows matched: 1  Changed: 0  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select *from bike;
++----+------+------+---------+---------+
+| Id | Name | type | Statuts | Company |
++----+------+------+---------+---------+
+|  1 | TVS  |   34 | active  |    1234 |
+|  2 | TVS  |   13 | active  |      88 |
+|  3 | Yzf  |   14 | active  |      77 |
++----+------+------+---------+---------+
+3 rows in set (0.0004 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from company;
++----+-------+--------+-------+
+| Id | Name  | Origin | found |
++----+-------+--------+-------+
+|  1 | Honda | India  |  1984 |
+|  2 | TVS   | India  |  1945 |
+|  3 | Yzf   | India  |  1978 |
++----+-------+--------+-------+
+3 rows in set (0.0006 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > update bike set Name='Honda' where Id=1;
+Query OK, 1 row affected (0.0223 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select *from bike;
++----+-------+------+---------+---------+
+| Id | Name  | type | Statuts | Company |
++----+-------+------+---------+---------+
+|  1 | Honda |   34 | active  |    1234 |
+|  2 | TVS   |   13 | active  |      88 |
+|  3 | Yzf   |   14 | active  |      77 |
++----+-------+------+---------+---------+
+3 rows in set (0.0004 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select bike.Name,country.name from bikeINNER JOIN Country on bike.Id=bike.Id;
+ERROR: 1146: Table 'bikedb.bikeinner' doesn't exist
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select bike.Name,country.name from bikeINNER JOIN Country on bike.Id=bike.id;
+ERROR: 1146: Table 'bikedb.bikeinner' doesn't exist
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select bike.Name,country.name from bike INNER JOIN Country on bike.Id=bike.id;
++-------+-------+
+| Name  | name  |
++-------+-------+
+| Yzf   | Japan |
+| TVS   | Japan |
+| Honda | Japan |
+| Yzf   | India |
+| TVS   | India |
+| Honda | India |
+| Yzf   | Japan |
+| TVS   | Japan |
+| Honda | Japan |
++-------+-------+
+9 rows in set (0.0190 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select bike.Name,country.name from bike INNER JOIN Country on bike.Id=Country.id;
++-------+-------+
+| Name  | name  |
++-------+-------+
+| Honda | Japan |
+| TVS   | India |
+| Yzf   | Japan |
++-------+-------+
+3 rows in set (0.0005 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select bike.Name,country.name as Country from bike INNER JOIN Country on bike.Id=Country.id;
++-------+---------+
+| Name  | Country |
++-------+---------+
+| Honda | Japan   |
+| TVS   | India   |
+| Yzf   | Japan   |
++-------+---------+
+3 rows in set (0.0004 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select bike.Id,bike.Name,country.name as Country from bike INNER JOIN Country on bike.Id=Country.id;
++----+-------+---------+
+| Id | Name  | Country |
++----+-------+---------+
+|  1 | Honda | Japan   |
+|  2 | TVS   | India   |
+|  3 | Yzf   | Japan   |
++----+-------+---------+
+3 rows in set (0.0008 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select bike.Id,bike.Name,country.name as Country, Company.found from bike INNER JOIN Country USING (ID) INNER JOIN company USING (ID) ORDER BY ID;
++----+-------+---------+-------+
+| Id | Name  | Country | found |
++----+-------+---------+-------+
+|  1 | Honda | Japan   |  1984 |
+|  2 | TVS   | India   |  1945 |
+|  3 | Yzf   | Japan   |  1978 |
++----+-------+---------+-------+
+3 rows in set (0.0008 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select * from company;
++----+-------+--------+-------+
+| Id | Name  | Origin | found |
++----+-------+--------+-------+
+|  1 | Honda | India  |  1984 |
+|  2 | TVS   | India  |  1945 |
+|  3 | Yzf   | India  |  1978 |
++----+-------+--------+-------+
+3 rows in set (0.0006 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select bike.statuts,Country.Name from bike INNER JOIN Country on bike.Id=Country.id;
++---------+-------+
+| statuts | Name  |
++---------+-------+
+| active  | Japan |
+| active  | India |
+| active  | Japan |
++---------+-------+
+3 rows in set (0.0005 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select bike.statuts,Country.Name from bike INNER JOIN Country on bike.Id=bike.id;
++---------+-------+
+| statuts | Name  |
++---------+-------+
+| active  | Japan |
+| active  | Japan |
+| active  | Japan |
+| active  | India |
+| active  | India |
+| active  | India |
+| active  | Japan |
+| active  | Japan |
+| active  | Japan |
++---------+-------+
+9 rows in set (0.0006 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select bike.statuts,Country.Name from bike INNER JOIN Country on country.Id=bike.id;
++---------+-------+
+| statuts | Name  |
++---------+-------+
+| active  | Japan |
+| active  | India |
+| active  | Japan |
++---------+-------+
+3 rows in set (0.0005 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select bike.statuts,Country.Name from bike INNER JOIN Country on comapny.Id=country.id;
+ERROR: 1054: Unknown column 'comapny.Id' in 'on clause'
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select bike.statuts,Country.Name from bike INNER JOIN Country on company.Id=country.id;
+ERROR: 1054: Unknown column 'company.Id' in 'on clause'
+ MySQL  localhost:33060+ ssl  bikedb  SQL > select Country.Name as Country, Company.Name as Company from Country INNER JOIN Company on company.Id=country.id;
++---------+---------+
+| Country | Company |
++---------+---------+
+| Japan   | Honda   |
+| India   | TVS     |
+| Japan   | Yzf     |
++---------+---------+
+3 rows in set (0.0006 sec)
+ MySQL  localhost:33060+ ssl  bikedb  SQL >
